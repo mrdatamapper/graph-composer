@@ -28,7 +28,16 @@ The `show` command creates a dependency graph for the given project path and ope
 the default desktop image viewer for you:
 
 ```bash
+$ php graph-composer.phar show [--format="..."] [--filter[="..."]] [-d|--dependency-version[=0/1]] [dir1:color1] ... [dirN:colorN]
+```
+
+Exemples :
+
+```bash
 $ php graph-composer.phar show ~/path/to/your/project
+$ php graph-composer.phar show ~/path/to/your/project:#FF0000
+$ php graph-composer.phar show --filter your-dependencies-prefix ~/path/to/your/project/root
+$ php graph-composer.phar show --filter your-dependencies-prefix ~/path/to/your/project/root1 ~/path/to/your/project/root2
 ```
 
 *   It accepts an optional argument which is the path to your project directory or composer.json file
@@ -37,13 +46,27 @@ $ php graph-composer.phar show ~/path/to/your/project
 *   You may optionally pass an `--format=[svg/svgz/png/jpeg/...]` option to set
     the image type (defaults to `svg`).
 
+*   You may optionally pass an `--filter="identifier"` option to filter graph on
+    specific dependencies.
+
+*   You may optionally pass an `--dependency-version|-d=[0/1]` option to show
+    dependencies version in graph or not.
+
 ### graph-composer export
 
 The `export` command works very much like the `show` command, but instead of opening your
 default image viewer, it will write the resulting graph to STDOUT or into an image file:
 
 ```bash
-$ php graph-composer.phar export ~/path/to/your/project
+$ php graph-composer.phar export [--format="..."] [--filter[="..."]] [-d|--dependency-version[="..."]] output [dir1] ... [dirN]
+```
+
+Exemples :
+
+```bash
+$ php graph-composer.phar export print ~/path/to/your/project
+$ php graph-composer.phar export print ~/path/to/your/project/root1 ~/path/to/your/project/root2
+$ php graph-composer.phar export --filter your-dependencies-prefix /path/to/your/image ~/path/to/your/project/root1 ~/path/to/your/project/root2
 ```
 
 *   It accepts an optional argument which is the path to your project directory or composer.json file
@@ -66,6 +89,12 @@ $ php graph-composer.phar export ~/path/to/your/project
 
 *   You may optionally pass an `--format=[svg/svgz/png/jpeg/...]` option to set
     the image type (defaults to `svg`).
+
+*   You may optionally pass an `--filter="identifier"` option to filter graph on
+    specific dependencies.
+
+*   You may optionally pass an `--dependency-version|-d=[0/1]` option to show
+    dependencies version in graph or not.
 
 ## Install
 

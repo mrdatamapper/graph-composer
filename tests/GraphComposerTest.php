@@ -19,7 +19,7 @@ class GraphTest extends PHPUnit_Framework_TestCase
     {
         $dir = __DIR__ . '/../';
 
-        $graphviz = $this->getMock('Graphp\GraphViz\GraphViz');
+        $graphviz = $this->createMock('Graphp\GraphViz\GraphViz');
         $graphviz->expects($this->once())->method('display');
 
         $graphComposer = new GraphComposer($dir, $graphviz);
@@ -30,7 +30,7 @@ class GraphTest extends PHPUnit_Framework_TestCase
     {
         $dir = __DIR__ . '/../';
 
-        $graphviz = $this->getMock('Graphp\GraphViz\GraphViz');
+        $graphviz = $this->createMock('Graphp\GraphViz\GraphViz');
         $graphviz->expects($this->once())->method('createImageFile')->will($this->returnValue('test.png'));
 
         $graphComposer = new GraphComposer($dir, $graphviz);
@@ -43,7 +43,7 @@ class GraphTest extends PHPUnit_Framework_TestCase
     {
         $dir = __DIR__ . '/../';
 
-        $graphviz = $this->getMock('Graphp\GraphViz\GraphViz');
+        $graphviz = $this->createMock('Graphp\GraphViz\GraphViz');
         $graphviz->expects($this->once())->method('setFormat')->with($this->equalTo('gif'));
 
         $graphComposer = new GraphComposer($dir, $graphviz);

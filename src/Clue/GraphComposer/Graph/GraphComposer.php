@@ -86,10 +86,11 @@ class GraphComposer
         }
 
         foreach ($this->dependencyGraph as $dependencyGraph) {
+            $rootPackageName = $dependencyGraph['dependencies']->getRootPackage()->getName();
             foreach ($dependencyGraph['dependencies']->getPackages() as $package) {
                 // Apply filter if necessary to get a light graph
                 $name = $package->getName();
-                if (!$this->matchFilter($name)) {
+                if (!$this->matchFilter($name, array($rootPackageName))) {
                     continue;
                 }
 
@@ -112,7 +113,7 @@ class GraphComposer
                 foreach ($package->getOutEdges() as $requires) {
                     // Apply filter if necessary to get a light graph
                     $targetName = $requires->getDestPackage()->getName();
-                    if (!$this->matchFilter($targetName)) {
+                    if (!$this->matchFilter($targetName, array($rootPackageName))) {
                         continue;
                     }
                     // Create dependency graph block
@@ -174,8 +175,11 @@ class GraphComposer
      *
      * @return bool
      */
-    private function matchFilter($name)
+    private function matchFilter($name, array $alwayson = null)
     {
+        if ($alwayson && in_array($name, $alwayson)) {
+            return true;
+        }
         if (empty($this->filter) || strpos($name, $this->filter) !== false) {
             return true;
         }
